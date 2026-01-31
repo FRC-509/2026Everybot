@@ -1,5 +1,6 @@
 package frc.robot.subsystems.drive;
 
+<<<<<<< HEAD
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
@@ -33,6 +34,23 @@ public class SwerveDrive extends SubsystemBase{
     public SwerveDrive(){
 
 
+=======
+import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.subsystem.drive.SwerveModule;
+
+public class SwerveDrive {
+    private final SwerveModule frontLeft;
+    private final SwerveModule backleft;
+    private final SwerveModule frontRight;
+    private final SwerveModule backRight;
+    
+    private final SwerveDriveKinematics kinematics;
+
+    public SwerveDrive(){
+        
+>>>>>>> e20ce00 (updated swrve module)
     }
 
     public void drive(Translation2d translationMPS, double omega, boolean fieldRelative){
