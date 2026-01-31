@@ -1,6 +1,7 @@
 package frc.robot.subsystems.drive;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
@@ -35,6 +36,8 @@ public class SwerveDrive extends SubsystemBase{
 
 
 =======
+=======
+>>>>>>> bc7cc16 (swerve drive)
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -50,7 +53,45 @@ public class SwerveDrive {
 
     public SwerveDrive(){
         
+<<<<<<< HEAD
 >>>>>>> e20ce00 (updated swrve module)
+=======
+=======
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
+
+
+//to do 
+//1. CONSTANTS
+
+
+public class SwerveDrive extends SubsystemBase{
+    
+    
+
+    private final SwerveDriveKinematics kinematics = new SwerveDriveKinematics(
+        new Translation2d(+Constants.Chassis.koffsetToSwerveModule, +Constants.Chassis.koffsetToSwerveModule),
+        new Translation2d(+Constants.Chassis.koffsetToSwerveModule, -Constants.Chassis.koffsetToSwerveModule),
+        new Translation2d(-Constants.Chassis.koffsetToSwerveModule, +Constants.Chassis.koffsetToSwerveModule),
+        new Translation2d(-Constants.Chassis.koffsetToSwerveModule, -Constants.Chassis.koffsetToSwerveModule)
+        );
+
+    public SwerveModule[] moduleStates = new SwerveModule[] {
+        new SwerveModule(Constants.Chassis.kfrontLeft),
+        new SwerveModule(Constants.Chassis.kfrontRight),
+        new SwerveModule(Constants.Chassis.kbackLeft),
+        new SwerveModule(Constants.Chassis.kbackRight),
+    };
+
+    public SwerveDrive(){
+
+
+>>>>>>> ead967e (swerve drive)
+>>>>>>> bc7cc16 (swerve drive)
     }
 
     public void drive(Translation2d translationMPS, double omega, boolean fieldRelative){
