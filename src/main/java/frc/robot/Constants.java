@@ -16,4 +16,13 @@ public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
   }
+
+  public static class Chassis {
+    public static final double koffsetToSwerveModule = 0;
+
+    public static final double kfrontLeft = 0;
+    public static final double kfrontRight = 0;
+    public static final double kbackLeft = 0;
+    public static final double kbackRight = 0;
+  }
 }

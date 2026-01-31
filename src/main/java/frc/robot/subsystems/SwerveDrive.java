@@ -1,4 +1,4 @@
-package frc.robot.subsystems.drive;
+package frc.robot.subsystems;
 
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -16,6 +16,22 @@ public class SwerveDrive extends SubsystemBase{
     
     
 
+    public static final TalonFX steerMotor1 = new TalonFX();
+    public static final TalonFX driveMotor1 = new TalonFX();
+    
+    // public static final TalonFX steerMotor2 = new TalonFX();
+    // public static final TalonFX driveMotor2 = new TalonFX();
+    
+    // public static final TalonFX steerMotor3 = new TalonFX();
+    // public static final TalonFX drivemotor3 = new TalonFX();
+
+    // public static final TalonFX steerMotor4 = new TalonFX();
+    // public static final TalonFX drivemotor4 = new TalonFX();
+
+    public static final PositionDutyCycle positionRequest = new PositionDutyCycle();
+    public static final VelocityDutyCycle velocityRequest = new VelocityDutyCycle();
+    
+    
     private final SwerveDriveKinematics kinematics = new SwerveDriveKinematics(
         new Translation2d(+Constants.Chassis.koffsetToSwerveModule, +Constants.Chassis.koffsetToSwerveModule),
         new Translation2d(+Constants.Chassis.koffsetToSwerveModule, -Constants.Chassis.koffsetToSwerveModule),
@@ -23,12 +39,7 @@ public class SwerveDrive extends SubsystemBase{
         new Translation2d(-Constants.Chassis.koffsetToSwerveModule, -Constants.Chassis.koffsetToSwerveModule)
         );
 
-    public SwerveModule[] moduleStates = new SwerveModule[] {
-        new SwerveModule(Constants.Chassis.kfrontLeft),
-        new SwerveModule(Constants.Chassis.kfrontRight),
-        new SwerveModule(Constants.Chassis.kbackLeft),
-        new SwerveModule(Constants.Chassis.kbackRight),
-    };
+    
 
     public SwerveDrive(){
 
@@ -58,17 +69,8 @@ public class SwerveDrive extends SubsystemBase{
         double angle = Math.atan2(translationMPS.getX(), translationMPS.getY());
 
 
-
-        if (fieldRelative){
-            moduleState 
-        }
-
-
-        for (SwerveModule module : moduleStates) {
-            module.setDesiredState()
-        }
-
-
+        steerMotor1.setControl(positionRequest.withOutput());
+        driveMotor1.setControl(velocityRequest.withOutput());
 
     }
     
