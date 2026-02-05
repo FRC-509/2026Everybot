@@ -84,18 +84,26 @@ public class LEDLights {
 
             switch(hopperState){
                 case (PASSIVE):
-
+                    hopperPattern = HopperStates.PASSIVE;
                 case (INDEXING):
-
+                    hopperPattern = HopperStates.INDEXING;
                 case (INTAKING_AND_INDEXING):
-
+                    hopperPattern = HopperStates.INTAKEING_AND_INDEXING;
                 case (FEED):
-
-                case ()
+                    hopperPattern = HopperStates.FEED;
+                case (OUTTAKE):
+                    hopperPattern = HopperStates.OUTTAKE;
             }
 
             switch(indexerState){
-                case
+                case(PASSIVE):
+                    indexerPattern = IndexerStates.PASSIVE;
+                case(LEFT):
+                    indexerPattern = IndexerStates.LEFT;
+                case(RIGHT):
+                    indexerPattern = IndexerStates.RIGHT;
+                case(LEFT_AND_RIGHT):
+                    indexerPattern = IndexerStates.LEFT_AND_RIGHT;
             }
 
             public void setState(){
