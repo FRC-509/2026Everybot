@@ -14,7 +14,7 @@ public class SwerveModule {
     private final TalonFX steerMotor;
     private final TalonFX driveMotor;
     private final CANcoder encoder;
-
+    
     //encoders when CTRE installed
 
     public SwerveModule(int moduleNumber, int steerMotorID, int driveMotorID, int encoderID){
