@@ -7,21 +7,23 @@ import edu.wpi.first.wpilibj.LEDPattern;
 public class LEDLights {
     private final AddressableLED kLED;
     private final AddressableLEDBuffer kBuffer;
+    private final <Optional> alliance;
 
 
-    public LEDLights(){
+    public LEDLights(BooleanSupplier ){
         kLED = new AddressableLED(0);
         kBuffer = new AddressableLEDBuffer(0);
+        alliance = DriverStation.getAlliance();
         KlED.setLength(kLength);
 
 
         public enum TurretStates{
-            NONE(),
-            HOPPER(),
-            NEUTRALZONE_FEED_LEFT(),
-            NEUTRALZANE_FEED_RIGHT(),
-            OPPOSING_ALLIANCE_FEED_LEFT(),
-            OPPOSING_ALLIANCE_FEED_RIGHT();
+            NONE(LEDPattern.solid(alliance)),
+            HOPPER(LEDPattern.solid(Color.kOrange)),
+            NEUTRALZONE_FEED_LEFT(LEDPattern.solid(Color.k)),
+            NEUTRALZANE_FEED_RIGHT(LEDPattern.solid(Color.k)),
+            OPPOSING_ALLIANCE_FEED_LEFT(LEDPattern.solid(Color.k)),
+            OPPOSING_ALLIANCE_FEED_RIGHT(LEDPattern.solid(Color.k));
 
             private final LEDPattern turretState;
 
