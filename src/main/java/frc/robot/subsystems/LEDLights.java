@@ -1,18 +1,22 @@
 package frc.robot.subsystems;
 
 import java.util.Map;
+import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
+import edu.wpi.first.wpilibj.AddressableLEDBufferView;
 import edu.wpi.first.wpilibj.LEDPattern;
-import edu.wpi.first.wpilibj.BooleanSupplier;
-import edu.wpi.first.wpilibj.util.color;
+import edu.wpi.first.wpilibj.util.Color;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import static edu.wpi.first.units.Units.*;
 
 
 public class LEDLights extends SubsystemBase {
-    public static final Color allyColor = (DriverStation.getAlliance() == Alliance.Red)? Color.kRed: Color.kBlue;
+    public static final Color allyColor = (DriverStation.getAlliance().equals(Alliance.Red))? Color.kRed: Color.kBlue;
 
     private static final AddressableLED m_led = new AddressableLED(0); //replace PWM port with constant later
 
@@ -30,31 +34,27 @@ public class LEDLights extends SubsystemBase {
     public enum UnderglowStates {
         PASSIVE(LEDPattern.solid(allyColor)),
         AUTO_COMPLETED(LEDPattern.solid(Color.kGreen)),
-        CLIMBING(LEDPattern.rainbow(255, 120).scrollAtRelativeSpeed(Percent.per(second).of(25)));
+        CLIMBING(LEDPattern.rainbow(255, 120).scrollAtRelativeSpeed(Percent.per(Second).of(25)));
 
         public LEDPattern pattern;
 
-        private UnderglowStatesStates(LEDPattern pattern) {
+        private UnderglowStates(LEDPattern pattern) {
             this.pattern = pattern;
         }
 
         public void apply(double brightness) {
-            LEDPattern patternToSet = pattern.atBrightness(brightness);
+            LEDPattern patternToSet = pattern.atBrightness(Percent.of(brightness));
             patternToSet.applyTo(m_underglowBufferView);
             m_led.setData(m_ledBuffer);
         }
     }
     
     public enum TurretStates {
-        PASSIVE(LEDPattern.solid(allyColor).breathe(Seconds.of(2))),
+        PASSIVE(LEDPattern.solid(allyColor).breathe(Second.of(2))),
         FIRING(LEDPattern.solid(allyColor)),
-        CANT_AIM(
-            LEDPattern.solid(allyColor).mask(
-                LEDPattern.steps(Map.of(0, Color.kWhite, 0.5, Color.kBlack).scrollAtRelativeSpeed(
-                    Percent.per(Second).of(0.25)))
-            )),
-        AUTO_COMPLETED(LEDPattern.solid(kGreen)),
-        CLIMBING(LEDPattern.rainbow(255, 120).scrollAtRelativeSpeed(Percent.per(second).of(25)));
+        CANT_AIM(LEDPattern.solid(allyColor).mask(LEDPattern.steps(Map.of(0, Color.kWhite, 0.5, Color.kBlack)).scrollAtRelativeSpeed(Percent.per(Second).of(0.25)))),
+        AUTO_COMPLETED(LEDPattern.solid(Color.kGreen)),
+        CLIMBING(LEDPattern.rainbow(255, 120).scrollAtRelativeSpeed(Percent.per(Second).of(25)));
 
         public LEDPattern pattern;
 
@@ -63,7 +63,7 @@ public class LEDLights extends SubsystemBase {
         }
 
         public void apply(double brightness) {
-            LEDPattern patternToSet = pattern.atBrightness(brightness);
+            LEDPattern patternToSet = pattern.atBrightness(Percent.of(brightness));
             patternToSet.applyTo(m_turretBufferView);
             m_led.setData(m_ledBuffer);
         }
@@ -85,7 +85,7 @@ public class LEDLights extends SubsystemBase {
         }
 
         if(isFiring.getAsBoolean()){
-            TurretStates.FIRING.apply(shooterTorque.getAsDouble);
+            TurretStates.FIRING.apply(shooterTorque.getAsDouble());
         } else if(cantAim.getAsBoolean()){
             TurretStates.CANT_AIM.apply(1);
         } else{
