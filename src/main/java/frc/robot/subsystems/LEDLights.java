@@ -3,32 +3,64 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.LEDPattern;
+import edu.wpi.first.wpilibj.BooleanSupplier;
 
 public class LEDLights extends SubsystemBase {
-    AddressableLED m_led = new AddressableLED(0); //replace ID with constant later
+    Optional<Alliance> alliance = DriverStation.getAlliance();
+    public static final Color allyColor = (alliance.get() == Alliance.Red)? Color.kRed: Color.kBlue;
 
-    AddressableLEDBuffer m_ledBuffer = new AddressableLEDBuffer(123);
-  
-    public enum underglowStates {
-        PASSIVE(),
-        AUTO_COMPLETE(),
-        CLIMB();
+    private static final AddressableLED m_led = new AddressableLED(0); //replace PWM port with constant later
+
+    private AddressableLEDBuffer m_ledBuffer = new AddressableLEDBuffer(123); //set the length of the strip here
+    private AddressableLEDBufferView m_turretBufferView = m_ledBuffer.createView(0, 50);
+    private AddressableLEDBufferView m_underglowBufferView = m_ledBuffer.createView(51, 100);
+    
+    //set these in the robot container using the subsystems/command's methods
+    public static BooleanSupplier isClimbing = () -> false;
+    public static BooleanSupplier isAutoComplete = () -> false;
+    public static BooleanSupplier isFiring = () -> false;
+    public static BooleanSupplier cantAim = () -> false;
+    public static DoubleSupplier shooterTorque = () -> 1.0;
+
+    public enum UnderglowStates {
+        PASSIVE(LEDPattern.solid(allyColor)),
+        AUTO_COMPLETED(LEDPattern.solid(Color.kGreen)),
+        CLIMBING(LEDPattern.rainbow(255, 120).scrollAtRelativeSpeed(Percent.per(second).of(25)));
+
+        public LEDPattern pattern;
+
+        private UnderglowStatesStates(LEDPattern pattern) {
+            this.pattern = pattern;
+        }
+
+        public void apply(double brightness) {
+            LEDPattern patternToSet = pattern.atBrightness(brightness);
+            patternToSet.applyTo(m_underglowBufferView);
+            m_led.setData(m_ledBuffer);
+        }
     }
     
-    public enum turretStates {
-        PASSIVE(LEDPattern.solid(kRed).breathe(Seconds.of(2)), () -> 100), //Replace kRed with constant for alliance color later
-        FIRING(LEDPattern.solid(kRed), tempConstants.shooterIntensity),  //Replace kRed with constant for alliance color later
-        CANT_AIM(LEDPattern.steps(Map.of(0, Color.kWhite, 0.5, Color.kBlack)).scrollAtRelativeSpeed(Percent.per(Second).of(0.25)), ),
-        AUTO_COMPLETED(),
-        CLIMBING();
+    public enum TurretStates {
+        PASSIVE(LEDPattern.solid(allyColor)).breathe(Seconds.of(2))),
+        FIRING(LEDPattern.solid(allyColor)),
+        CANT_AIM(
+            LEDPattern.solid(allyColor).mask(
+                LEDPattern.steps(Map.of(0, Color.kWhite, 0.5, Color.kBlack).scrollAtRelativeSpeed(
+                    Percent.per(Second).of(0.25)))
+            )),
+        AUTO_COMPLETED(LEDPattern.solid(kGreen)),
+        CLIMBING(LEDPattern.rainbow(255, 120).scrollAtRelativeSpeed(Percent.per(second).of(25)));
 
-        LEDPattern pattern;
-        DoubleSupplier intensity;
+        public LEDPattern pattern;
 
-        private turretStates(LEDPattern pattern, DoubleSupplier intensity) {
+        private TurretStates(LEDPattern pattern) {
             this.pattern = pattern;
-            this.intensity = intensity;
+        }
 
+        public void apply(double brightness) {
+            LEDPattern patternToSet = pattern.atBrightness(brightness);
+            patternToSet.applyTo(m_turretBufferView);
+            m_led.setData(m_ledBuffer);
         }
     }
 
@@ -36,7 +68,23 @@ public class LEDLights extends SubsystemBase {
         m_led.setLength(m_ledBuffer.getLength());
         m_led.setData(m_ledBuffer);
         m_led.start();
-    
+    }
 
+    @Override
+    public void periodic(){ //auto will be set later, as it is only a temperary set
+        if(isClimbing.getAsBoolean()){
+            UnderglowStates.CLIMBING.apply(1);
+            TurretStates.CLIMBING.apply(1);
+        } else {
+            UnderglowStates.PASSIVE.apply(1);
+        }
+
+        if(isFiring.getAsBoolean()){
+            TurretStates.FIRING.apply(shooterTorque.getAsDouble);
+        } else if(cantAim.getAsBoolean()){
+            TurretStates.CANT_AIM.apply(1);
+        } else{
+            TurretStates.PASSIVE.apply(1);
+        }
     }
 }
