@@ -1,19 +1,24 @@
 package frc.robot.subsystems;
 
+import java.util.Map;
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.LEDPattern;
 import edu.wpi.first.wpilibj.BooleanSupplier;
+import edu.wpi.first.wpilibj.util.color;
+import edu.wpi.first.wpilibj.DriverStation;
+
 
 public class LEDLights extends SubsystemBase {
-    Optional<Alliance> alliance = DriverStation.getAlliance();
-    public static final Color allyColor = (alliance.get() == Alliance.Red)? Color.kRed: Color.kBlue;
+    public static final Color allyColor = (DriverStation.getAlliance() == Alliance.Red)? Color.kRed: Color.kBlue;
 
     private static final AddressableLED m_led = new AddressableLED(0); //replace PWM port with constant later
 
-    private AddressableLEDBuffer m_ledBuffer = new AddressableLEDBuffer(123); //set the length of the strip here
-    private AddressableLEDBufferView m_turretBufferView = m_ledBuffer.createView(0, 50);
-    private AddressableLEDBufferView m_underglowBufferView = m_ledBuffer.createView(51, 100);
+    private static AddressableLEDBuffer m_ledBuffer = new AddressableLEDBuffer(123); //set the length of the strip here
+    private static AddressableLEDBufferView m_turretBufferView = m_ledBuffer.createView(0, 50);
+    private static AddressableLEDBufferView m_underglowBufferView = m_ledBuffer.createView(51, 100);
     
     //set these in the robot container using the subsystems/command's methods
     public static BooleanSupplier isClimbing = () -> false;
@@ -41,7 +46,7 @@ public class LEDLights extends SubsystemBase {
     }
     
     public enum TurretStates {
-        PASSIVE(LEDPattern.solid(allyColor)).breathe(Seconds.of(2))),
+        PASSIVE(LEDPattern.solid(allyColor).breathe(Seconds.of(2))),
         FIRING(LEDPattern.solid(allyColor)),
         CANT_AIM(
             LEDPattern.solid(allyColor).mask(
