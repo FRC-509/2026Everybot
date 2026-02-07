@@ -20,16 +20,16 @@ public class LEDLights extends SubsystemBase {
 
     private static final AddressableLED m_led = new AddressableLED(0); //replace PWM port with constant later
 
-    private static AddressableLEDBuffer m_ledBuffer = new AddressableLEDBuffer(123); //set the length of the strip here
-    private static AddressableLEDBufferView m_turretBufferView = m_ledBuffer.createView(0, 50);
-    private static AddressableLEDBufferView m_underglowBufferView = m_ledBuffer.createView(51, 100);
+    private static AddressableLEDBuffer m_ledBuffer = new AddressableLEDBuffer(80); //set the length of the strip here
+    private static AddressableLEDBufferView m_turretBufferView = m_ledBuffer.createView(0, 39);
+    private static AddressableLEDBufferView m_underglowBufferView = m_ledBuffer.createView(40, 79);
     
     //set these in the robot container using the subsystems/command's methods
-    public static BooleanSupplier isClimbing = () -> false;
-    public static BooleanSupplier isAutoComplete = () -> false;
-    public static BooleanSupplier isFiring = () -> false;
-    public static BooleanSupplier cantAim = () -> false;
-    public static DoubleSupplier shooterTorque = () -> 1.0;
+    public BooleanSupplier isClimbing = () -> false;
+    public BooleanSupplier isAutoComplete = () -> false;
+    public BooleanSupplier isFiring = () -> false;
+    public BooleanSupplier cantAim = () -> false;
+    public DoubleSupplier shooterTorque = () -> 1.0;
 
     public enum UnderglowStates {
         PASSIVE(LEDPattern.solid(allyColor)),
