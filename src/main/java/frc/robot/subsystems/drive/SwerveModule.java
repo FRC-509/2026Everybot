@@ -30,7 +30,7 @@ public class SwerveModule {
     public SwerveModuleState getState(){
         return new SwerveModuleState(
             
-        )
+        );
     }
 
     public SwerveModuleState setDesiredState(){

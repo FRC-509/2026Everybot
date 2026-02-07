@@ -16,8 +16,4 @@ public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
   }
-  //This is for universal constants that will be set in Commands, so they can be accessed anywhere
-  public static class ChangableConstants {
-    public static DoubleSupplier shooterIntensity = 0; //in shooting command, set this so it can be used in the  LEDlights class
-  }
 }

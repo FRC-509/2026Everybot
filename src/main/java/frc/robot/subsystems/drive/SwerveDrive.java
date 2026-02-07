@@ -6,15 +6,14 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.subsystems.drive.SwerveModule;
 
 public class SwerveDrive {
-    private final SwerveModule frontLeft;
-    private final SwerveModule backleft;
-    private final SwerveModule frontRight;
-    private final SwerveModule backRight;
+    private final SwerveModule frontLeft = null; //this is just a placeholder for when we set it
+    private final SwerveModule backLeft = null; //this is just a placeholder for when we set it
+    private final SwerveModule frontRight = null; //this is just a placeholder for when we set it
+    private final SwerveModule backRight = null; //this is just a placeholder for when we set it
     
-    private final SwerveDriveKinematics kinematics;
+    private final SwerveDriveKinematics kinematics = null; //this is just a placeholder for when we set it
 
-    public SwerveDrive(){
-        
+    public SwerveDrive() {
     }
 
     

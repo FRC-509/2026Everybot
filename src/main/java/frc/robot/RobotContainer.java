@@ -60,7 +60,7 @@ public class RobotContainer {
     //Below is the testing; we sest the boolean suppliers in LEDLights.java so we can test them
     lightBulb.isClimbing = () -> m_driverController.y().getAsBoolean();
     lightBulb.isFiring = () -> m_driverController.x().getAsBoolean();
-    lightBulb.cantAim = () -> m_driverController.B().getAsBoolean();
+    lightBulb.cantAim = () -> m_driverController.b().getAsBoolean();
     lightBulb.shooterTorque = () -> m_driverController.getLeftY();
   }
 
