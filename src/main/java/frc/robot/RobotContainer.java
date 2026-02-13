@@ -8,6 +8,11 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.LEDLights;
+
+import java.util.function.BooleanSupplier;
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -21,6 +26,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  private final LEDLights lightBulb= new LEDLights();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
@@ -42,13 +48,20 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
+    /*
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     new Trigger(m_exampleSubsystem::exampleCondition)
         .onTrue(new ExampleCommand(m_exampleSubsystem));
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-    m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
+    m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand()); */
+
+    //Below is the testing; we sest the boolean suppliers in LEDLights.java so we can test them
+    lightBulb.isClimbing = () -> m_driverController.y().getAsBoolean();
+    lightBulb.isFiring = () -> m_driverController.x().getAsBoolean();
+    lightBulb.cantAim = () -> m_driverController.b().getAsBoolean();
+    lightBulb.shooterTorque = () -> m_driverController.getLeftY();
   }
 
   /**
