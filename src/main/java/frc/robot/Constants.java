@@ -25,4 +25,18 @@ public final class Constants {
     public static final double kbackLeft = 0;
     public static final double kbackRight = 0;
   }
+
+  public static class Turret {
+    public static final double kTurretHeightFromGround = 0;
+    public static final double kTurretAngleDegrees = 17;
+    public static double kMaxExitingVelocity = 0;
+    public static int kAngularSpeed = 0;
+    public static int kFlyWheelRadius = 0;
+  }
+
+  public static class Field {
+
+    public static int kFuelRadius;
+
+  }
 }

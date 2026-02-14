@@ -16,7 +16,7 @@ import static edu.wpi.first.units.Units.*;
 
 
 public class LEDLights extends SubsystemBase {
-    public static final Color allyColor = (DriverStation.getAlliance().equals(Alliance.Red))? Color.kRed: Color.kBlue;
+    public static final Color allianceColor = (DriverStation.getAlliance().equals(Alliance.Red))? Color.kRed: Color.kBlue;
 
     private static final AddressableLED m_led = new AddressableLED(0); //replace PWM port with constant later
 
@@ -32,7 +32,7 @@ public class LEDLights extends SubsystemBase {
     public DoubleSupplier shooterTorque = () -> 1.0;
 
     public enum UnderglowStates {
-        PASSIVE(LEDPattern.solid(allyColor)),
+        PASSIVE(LEDPattern.solid(allianceColor)),
         AUTO_COMPLETED(LEDPattern.solid(Color.kGreen)),
         CLIMBING(LEDPattern.rainbow(255, 120).scrollAtRelativeSpeed(Percent.per(Second).of(25)));
 
@@ -50,9 +50,9 @@ public class LEDLights extends SubsystemBase {
     }
     
     public enum TurretStates {
-        PASSIVE(LEDPattern.solid(allyColor).breathe(Second.of(2))),
-        FIRING(LEDPattern.solid(allyColor)),
-        CANT_AIM(LEDPattern.solid(allyColor).mask(LEDPattern.steps(Map.of(0, Color.kWhite, 0.5, Color.kBlack)).scrollAtRelativeSpeed(Percent.per(Second).of(0.25)))),
+        PASSIVE(LEDPattern.solid(allianceColor).breathe(Second.of(2))),
+        FIRING(LEDPattern.solid(allianceColor)),
+        CANT_AIM(LEDPattern.solid(allianceColor).mask(LEDPattern.steps(Map.of(0, Color.kWhite, 0.5, Color.kBlack)).scrollAtRelativeSpeed(Percent.per(Second).of(0.25)))),
         AUTO_COMPLETED(LEDPattern.solid(Color.kGreen)),
         CLIMBING(LEDPattern.rainbow(255, 120).scrollAtRelativeSpeed(Percent.per(Second).of(25)));
 
