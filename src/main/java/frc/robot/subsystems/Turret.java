@@ -37,14 +37,14 @@ public class Turret extends SubsystemBase {
     }
 
     public enum TargetModes {
-            NONE(Translation3d.kzero()),
+            NONE(Translation3d.kZero),
             HOPPER(new Translation3d()),
             NEUTRALZONE_FEED_LEFT(new Translation3d()),
             NEUTRALZONE_FEED_RIGHT(new Translation3d()),
             OPPOSING_ALLIANCE_FEED_LEFT(new Translation3d()),
             OPPOSING_ALLIANCE_FEED_RIGHT(new Translation3d());
 
-            public static final Translation3d position;
+            public final Translation3d position;
 
             private TargetModes(Translation3d position) {
                 this.position = position;
@@ -55,8 +55,8 @@ public class Turret extends SubsystemBase {
     public void setFlyWheelSpeeds(){
         double[] flyWheelSpeeds = calculateFlyWheelSpeeds();
 
-        kTopFlyWheelMotor.setControl(kTopVelocityRequest.withOutput(flyWheelSpeeds[0]));
-        kBottomFlyWheelmotor.setControl(kBottomVelocityRequest.withOutput(flyWheelSpeeds[1]));
+        kTopFlyWheelMotor.setControl(kTopVelocityRequest.withVelocity(flyWheelSpeeds[0]));
+        kBottomFlyWheelmotor.setControl(kBottomVelocityRequest.withVelocity(flyWheelSpeeds[1]));
     }
 
     public void setRotation(double rotation){
