@@ -39,4 +39,12 @@ public final class Constants {
     public static int kFuelRadius;
 
   }
+
+  public static class Vision {
+    public static final double kCameraHeight = 0;
+    public static final double kCameraAngleDegrees = 0;
+    public static final double kAprilTagHeight = 0;
+    public static final double kAprilTagToCameraHeight = kCameraHeight - kAprilTagHeight;
+    
+  }
 }
