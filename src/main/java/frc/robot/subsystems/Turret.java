@@ -2,7 +2,7 @@ package frc.robot.subsystems;
 
 import java.util.function.DoubleSupplier;
 
-import com.ctre.phoneix6.hardware.TalonFX;
+import com.ctre.phoenix6.hardware.TalonFX;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -72,7 +72,7 @@ public class Turret extends SubsystemBase {
         double targetHeight = targetTurretRelative.getZ();
 
 
-        return Math.sqrt((9.8 * Math.pow(distance, 2)) / (2 * Math.cos(theta) * Math.cos(theta) * distance * Math.tan(theta) - targetHeight));
+        return Math.sqrt((9.8 * Math.pow(distance, 2)) / (2 * Math.pow(Math.cos(theta),2) * distance * Math.tan(theta) - targetHeight));
     }
 
     public double[] calculateFlyWheelSpeeds(){
@@ -112,8 +112,18 @@ public class Turret extends SubsystemBase {
                 offsetTranslation.getX() * Math.cos(robotYawSupplier.getAsDouble() + offsetTranslation.getY() * Math.sin(robotYawSupplier.getAsDouble())),
                 offsetTranslation.getX() * -Math.sin(robotYawSupplier.getAsDouble() + offsetTranslation.getY() * Math.sin(robotYawSupplier.getAsDouble()))
             ));
+
     }
 
+    public double getRotationToHub(){
+        
+        return Math.atan2(Translation2d.kZero.getX().getAsDouble() / Translation2d.kZero.getY().getAsDouble());
+    }
 
+    @Override
+    public void periodic(){
+        getTurretPosition();
+        calculateFlyWheelSpeeds();
+    }
 
 }
