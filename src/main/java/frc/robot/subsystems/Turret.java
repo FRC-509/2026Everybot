@@ -2,6 +2,8 @@ package frc.robot.subsystems;
 
 import java.util.function.DoubleSupplier;
 
+import com.ctre.phoenix6.controls.PositionDutyCycle;
+import com.ctre.phoenix6.controls.VelocityDutyCycle;
 import com.ctre.phoenix6.hardware.TalonFX;
 
 import edu.wpi.first.math.MathUtil;
@@ -17,9 +19,9 @@ public class Turret extends SubsystemBase {
     private final TalonFX kTopFlyWheelMotor = new TalonFX(0);
     private final TalonFX kBottomFlyWheelmotor = new TalonFX(0);
 
-    private final PositionDutyCycle kPositionRequest = new PositionDutyCycle();
-    private final VelocityDutyCycle kTopVelocityRequest = new VelocityDutyCycle();
-    private final VelocityDutyCycle kBottomVelocityRequest = new VelocityDutyCycle();
+    private final PositionDutyCycle kPositionRequest = new PositionDutyCycle(0);
+    private final VelocityDutyCycle kTopVelocityRequest = new VelocityDutyCycle(0);
+    private final VelocityDutyCycle kBottomVelocityRequest = new VelocityDutyCycle(0);
 
     private final DoubleSupplier robotYawSupplier;
     private final Translation2dSupplier estimatedPosition; 
@@ -31,21 +33,24 @@ public class Turret extends SubsystemBase {
         this.estimatedPosition = estimatedPosition;
         this.offsetTranslation = offsetTranslation;
 
-        public enum TargetModes {
-            HONE(Translation3d.kzero()),
+        
+    }
+
+    public enum TargetModes {
+            NONE(Translation3d.kzero()),
             HOPPER(new Translation3d()),
             NEUTRALZONE_FEED_LEFT(new Translation3d()),
             NEUTRALZONE_FEED_RIGHT(new Translation3d()),
             OPPOSING_ALLIANCE_FEED_LEFT(new Translation3d()),
             OPPOSING_ALLIANCE_FEED_RIGHT(new Translation3d());
 
-            public final Translation3d position;
+            public static final Translation3d position;
 
             private TargetModes(Translation3d position) {
                 this.position = position;
             }
         }
-    }
+    
 
     public void setFlyWheelSpeeds(){
         double[] flyWheelSpeeds = calculateFlyWheelSpeeds();

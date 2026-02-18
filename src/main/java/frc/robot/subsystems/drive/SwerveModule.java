@@ -25,9 +25,9 @@ public class SwerveModule {
         encoder = new CANcoder(encoderID);
     }
 
-    public Rotation2d getAngle(){
-        return Rotation2d.fromRotations(steerMotor.getPosition.getValueAsDouble());
-    }
+    // public Rotation2d getAngle(){
+    //     return Rotation2d.fromRotations(steerMotor.getPosition.getValueAsDouble());
+    // }
 
     public SwerveModuleState getState(){
         return new SwerveModuleState(
@@ -35,7 +35,7 @@ public class SwerveModule {
         );
     }
 
-    public SwerveModuleState setDesiredState(){
+    // public SwerveModuleState setDesiredState(){
         
-    }
+    // }
 }

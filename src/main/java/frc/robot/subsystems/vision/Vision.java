@@ -7,14 +7,14 @@ import frc.robot.Constants;
 
 public class Vision {
     
-    DoubleSupplier tx = LimelightHelpers.getTX("");  // Horizontal offset from crosshair to target in degrees
-    DoubleSupplier ty = LimelightHelpers.getTY("");  // Vertical offset from crosshair to target in degrees
+    double tx = LimelightHelpers.getTX("");  // Horizontal offset from crosshair to target in degrees
+    double ty = LimelightHelpers.getTY("");  // Vertical offset from crosshair to target in degrees
     
-    DoubleSupplier ta = LimelightHelpers.getTA("");  // Target area (0% to 100% of image)
-    BooleanSupplier hasTarget = LimelightHelpers.getTV(""); // Do you have a valid target?
+    double ta = LimelightHelpers.getTA("");  // Target area (0% to 100% of image)
+    boolean hasTarget = LimelightHelpers.getTV(""); // Do you have a valid target?
 
-    DoubleSupplier txnc = LimelightHelpers.getTXNC("");  // Horizontal offset from principal pixel/point to target in degrees
-    DoubleSupplier tync = LimelightHelpers.getTYNC("");  // Vertical offset from principal pixel/point to target in degrees
+    double txnc = LimelightHelpers.getTXNC("");  // Horizontal offset from principal pixel/point to target in degrees
+    double tync = LimelightHelpers.getTYNC("");  // Vertical offset from principal pixel/point to target in degrees
 
     
 
@@ -56,7 +56,7 @@ public class Vision {
 
 
     public double getView1PT(){
-        return Constants.Vision.kCameraHeight * Math.tan(tync);
+        return Constants.Vision.kCameraHeight * Math.atan(tync);
     }
 
     public double getView1Hypot(){

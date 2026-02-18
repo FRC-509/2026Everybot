@@ -23,12 +23,12 @@ public class SwerveDrive extends SubsystemBase{
         new Translation2d(-Constants.Chassis.koffsetToSwerveModule, -Constants.Chassis.koffsetToSwerveModule)
         );
 
-    public SwerveModule[] moduleStates = new SwerveModule[] {
-        new SwerveModule(Constants.Chassis.kfrontLeft),
-        new SwerveModule(Constants.Chassis.kfrontRight),
-        new SwerveModule(Constants.Chassis.kbackLeft),
-        new SwerveModule(Constants.Chassis.kbackRight),
-    };
+    // public SwerveModule[] moduleStates = new SwerveModule[] {
+    //     new SwerveModule(Constants.Chassis.kfrontLeft),
+    //     new SwerveModule(Constants.Chassis.kfrontRight),
+    //     new SwerveModule(Constants.Chassis.kbackLeft),
+    //     new SwerveModule(Constants.Chassis.kbackRight),
+    // };
 
     public SwerveDrive(){
 
@@ -59,13 +59,14 @@ public class SwerveDrive extends SubsystemBase{
 
 
         if (fieldRelative){
-            moduleState 
+            // moduleState 
         }
 
 
-        for (SwerveModule module : moduleStates) {
-            module.setDesiredState()
-        }
+        // for (SwerveModule module : moduleStates) {
+        //     // module.setDesiredState()
+        // }
+
 
 
 
