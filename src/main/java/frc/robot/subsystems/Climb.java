@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -26,8 +27,8 @@ public class Climb extends SubsystemBase {
         climbConfig.Feedback.SensorToMechanismRatio = 1.0;
 
         climbConfig.slot0.kP = 0;
-        climbConfix.slot0.kI = 0;
-        climbConfix.slot0.kD = 0;
+        climbConfig.slot0.kI = 0;
+        climbConfig.slot0.kD = 0;
 
         climbMotor.getConfigurator().apply(climbConfig);
         
@@ -44,7 +45,7 @@ public class Climb extends SubsystemBase {
         return encoder.getAbsolutePosition().refresh().getValueAsDouble();
     }
     public void setPosition(double position) {
-        Math.calmp(-0.5, position, 0.5);
+        MathUtil.clamp(position, -0.5, 0.5);
         climbMotor.setControl(rotationClosedLoop.withPosition(position));
     }
 }
